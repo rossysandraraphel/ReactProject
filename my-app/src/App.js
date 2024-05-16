@@ -9,21 +9,21 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-const PersonList = () => {
-  const [persons, setPersons] = useState([]);
+const OrderList = () => {
+  const [orders, setOrders] = useState([]);
   const [fetchMethod, setFetchMethod] = useState('api');
 
   useEffect(() => {
     if (fetchMethod === 'api') {
       axios.get(`https:d2b83f18-f85b-41e1-95fd-a175ef150e62.mock.pstmn.io/delivered`)
         .then(res => {
-          setPersons(res.data);
+          setOrders(res.data);
         })
         .catch(error => console.error('Error fetching data from API:', error));
     } else if (fetchMethod === 'json') {
       fetch('./order_replace.json')
         .then(response => response.json())
-        .then(data => setPersons(data))
+        .then(data => setOrders(data))
         .catch(error => console.error('Error fetching data from JSON:', error));
     }
   }, [fetchMethod]);
@@ -46,11 +46,11 @@ const PersonList = () => {
       {/* <button onClick={fetchDataFromApi}>Fetch Data from API</button>
       <button onClick={fetchDataFromJson}>Fetch Data from JSON</button> */}
       <Timeline position="alternate">
-        {persons.map((person, index) => (
+        {orders.map((person, index) => (
           <TimelineItem key={index}>
             <TimelineSeparator>
               <TimelineDot color="success"/>
-              {index !== persons.length - 1 && <TimelineConnector />}
+              {index !== orders.length - 1 && <TimelineConnector />}
             </TimelineSeparator>
             <TimelineContent>{person.event}</TimelineContent>
           </TimelineItem>
@@ -60,4 +60,4 @@ const PersonList = () => {
   );
 };
 
-export default PersonList;
+export default OrderList;
